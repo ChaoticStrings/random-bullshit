@@ -84,6 +84,7 @@ def draw_ball():
 
     sense.set_pixel(4,0,(255,255,255))
 
+
 image= [
 j,j,j,j,j,j,y,c,
 j,j,j,j,j,j,y,y,
@@ -105,21 +106,19 @@ j,j,j,j,j,j,j,j,
 j,j,j,j,j,j,j,j,
 j,j,j,j,j,j,j,j
 ]
+if x == 2 and y == 7 or x == 3 and y == 7:
+    sense.set_pixels(image)
+    sleep(1)
+    light=True
+    def move_middle(event):
+        global light
+        if event.action == 'pressed':
+            light=False
+            sense.set_pixels(lights_off)
+    sense.stick.direction_middle = move_middle
 
-sense.set_pixels(image)
-sleep(1)
-
-light=True
-
-def move_middle(event):
-    global light
-    if event.action == 'pressed':
-        light=False
-        sense.set_pixels(lights_off)
-sense.stick.direction_middle = move_middle
-
-sleep(30)
-
+    sleep(30)
+    goto:menu
 while True:
 
     sense.clear(0, 0, 0)
