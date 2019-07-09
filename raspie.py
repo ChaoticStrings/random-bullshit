@@ -30,7 +30,7 @@ sleep(1)
 
 sense.show_message("Raspie!", scroll_speed=0.05, text_colour=[183,125,63])
 
-label:menu
+menu = False
 
 y = 4
 x = 4
@@ -118,11 +118,36 @@ if x == 2 and y == 7 or x == 3 and y == 7:
     sense.stick.direction_middle = move_middle
 
     sleep(30)
-    goto:menu
-while True:
+    
+while menu == True:
+    y = 4
+    x = 4
 
     sense.clear(0, 0, 0)
-    draw_ball()
+      sense.set_pixel(x, y, 255, 255, 255)  draw_ball()
     sleep(0.25)
+    def move_up(event):
+        global y
+        if event.action == 'pressed' and y > 0:
+           y -= 1
+        sense.stick.direction_up = move_up
+
+    def move_down(event):
+        global y
+        if event.action == 'pressed' and y < 7:
+            y += 1
+        sense.stick.direction_down = move_down
+
+    def move_left(event):
+        global x
+        if event.action == 'pressed' and x > 0:
+            x -= 1
+    sense.stick.direction_left = move_left
+
+    def move_right(event):
+        global x
+        if event.action == 'pressed' and x < 7:
+            x += 1
+    sense.stick.direction_right = move_right
 
 
