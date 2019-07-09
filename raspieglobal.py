@@ -84,20 +84,7 @@ while True:
 		quando acaba o banho
 		state = "menu"
    
-	if state == "fun"
-		codigo do fun
-		quando acaba o fun
-		state = "menu"
 	
-	if state == "eat"
-		codigo da comida
-		quando acaba a comida
-		state = "menu"
-        
-	if state == "fun"
-		codigo do fun
-		quando acaba o fun
-		state == "menu"
         
 	if state == "sleep"
 		sense.set_pixels(image)
