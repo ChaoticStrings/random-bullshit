@@ -15,7 +15,7 @@ p=(234,126,173)
 a=(2,247,202)
 j=(0,0,0)
 
-image = [
+image= [
 j,j,j,j,j,j,j,j,
 c,c,j,j,j,j,c,c,
 c,p,c,c,c,c,p,c,
@@ -30,14 +30,41 @@ sleep(1)
 
 sense.show_message("Raspie!", scroll_speed=0.05, text_colour=[183,125,63])
 
- image = [
-j,j,j,j,j,j,j,j,
-j,j,j,j,j,j,j,j,
-j,j,j,j,j,j,j,j,
-j,j,j,j,j,j,j,j,
-j,j,j,j,j,j,j,j,
-j,j,j,j,j,j,j,j,
-j,j,j,j,j,j,j,j,
-p,j,j,j,j,j,j,p
-]
+y = 4
+x = 4
+sense.set_pixel(x, y, 255, 255, 255)
+
+def move_up(event):
+    global y
+    if event.action == 'pressed' and y > 0:
+        y -= 1
+sense.stick.direction_up = move_up
+
+def move_down(event):
+    global y
+    if event.action == 'pressed' and y < 8:
+        y += 1
+sense.stick.direction_down = move_down
+
+def move_left(event):
+    global x
+    if event.action == 'pressed' and x > 0:
+        x -= 1
+sense.stick.direction_left = move_left
+
+def move_right(event):
+    global x
+    if event.action == 'pressed' and x < 8:
+        x += 1
+sense.stick.direction_right = move_right
+
+
+def draw_ball():
+    sense.set_pixel(x, y, 183, 125, 63)
+    
+while True:
+    sense.clear(0, 0, 0)
+    draw_ball()
+    sleep(0.25)
+
 
