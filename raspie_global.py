@@ -35,7 +35,7 @@ x = 4
 H = 1
 F = 1
 C = 1
-E = 1
+E = 1a
 def draw_ball():
             sense.set_pixel(0,7,(132,247,61))
             sense.set_pixel(1,7,(132,247,61))
