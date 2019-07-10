@@ -32,6 +32,10 @@ sleep(1)
 sense.show_message("Raspie!", scroll_speed=0.05, text_colour=[183,125,63])
 y = 4
 x = 4
+H = 1
+F = 1
+C = 1
+E = 1
 def draw_ball():
             sense.set_pixel(0,7,(132,247,61))
             sense.set_pixel(1,7,(132,247,61))
@@ -88,12 +92,14 @@ while True:
         state = "sleep"
     if x == 3 and y == 7 and state == "menu":
         state = "food"
-
     if x == 7 and y == 7 and state == "menu":
         state = "bath"
-
     if x == 5 and y == 7 and state == "menu":
         state = "sleep"
+    if x == 3 and y == 0 and state == "menu":
+        state = "stats"
+    if x == 4 and y == 0 and state == "menu":
+        state = "stats"
 
     def move_middle(event):
         if event.action == 'pressed':
@@ -255,3 +261,50 @@ while True:
         state = "menu"
         x=4
         y=4
+        
+    if state == "stats":
+        sense.clear()
+        if H == 4:
+            sense.set_pixel(6,1,(105,198,247))
+            sense.set_pixel(7,1,(105,198,247))
+            sense.set_pixel(6,2,(105,198,247))
+            sense.set_pixel(7,2,(105,198,247))
+            sense.set_pixel(6,3,(105,198,247))
+            sense.set_pixel(7,3,(105,198,247))
+            sense.set_pixel(6,4,(105,198,247))
+            sense.set_pixel(7,4,(105,198,247))
+            sense.set_pixel(6,5,(105,198,247))
+            sense.set_pixel(7,5,(105,198,247))
+            sense.set_pixel(6,6,(105,198,247))
+            sense.set_pixel(7,6,(105,198,247))
+            sense.set_pixel(6,7,(105,198,247))
+            sense.set_pixel(7,7,(105,198,247))
+            sense.set_pixel(6,0,(105,198,247))
+            sense.set_pixel(7,0,(105,198,247))
+        elif H == 3:
+            sense.set_pixel(6,1,(105,198,247))
+            sense.set_pixel(7,1,(105,198,247))
+            sense.set_pixel(6,2,(105,198,247))
+            sense.set_pixel(7,2,(105,198,247))
+            sense.set_pixel(6,3,(105,198,247))
+            sense.set_pixel(7,3,(105,198,247))
+            sense.set_pixel(6,4,(105,198,247))
+            sense.set_pixel(7,4,(105,198,247))
+            sense.set_pixel(6,5,(105,198,247))
+            sense.set_pixel(7,5,(105,198,247))
+            sense.set_pixel(6,0,(105,198,247))
+            sense.set_pixel(7,0,(105,198,247))
+        elif H == 2:
+            sense.set_pixel(6,1,(105,198,247))
+            sense.set_pixel(7,1,(105,198,247))
+            sense.set_pixel(6,2,(105,198,247))
+            sense.set_pixel(7,2,(105,198,247))
+            sense.set_pixel(6,3,(105,198,247))
+            sense.set_pixel(7,3,(105,198,247))
+            sense.set_pixel(6,0,(105,198,247))
+            sense.set_pixel(7,0,(105,198,247))
+        elif H == 1:
+            sense.set_pixel(6,1,(105,198,247))
+            sense.set_pixel(7,1,(105,198,247))
+            sense.set_pixel(6,2,(105,198,247))
+            sense.set_pixel(7,2,(105,198,247))
