@@ -75,9 +75,22 @@ while True:
         sense.stick.direction_right = move_right
         draw_ball()
 
-
     if x == 2 and y == 7 and state == "menu":
         state = "sleep"
+    if x == 6 and y == 7 and state == "menu":
+        state = "bath"
+    if x == 0 and y == 7 and state == "menu":
+        state = "fun"
+    if x == 4 and y == 7 and state == "menu":
+        state = "food"
+    if x == 3 and y == 7 and state == "menu":
+        state = "sleep"
+    if x == 7 and y == 7 and state == "menu":
+        state = "bath"
+    if x == 1 and y == 7 and state == "menu":
+        state = "fun"
+    if x == 5 and y == 7 and state == "menu":
+        state = "food"
 
     def move_middle(event):
         global light
@@ -110,7 +123,14 @@ while True:
         sense.stick.direction_middle = move_middle
         sleep(10)
         sense.clear(0,0,0)
-        state = "menu"       
-
-
-
+        state = "menu"
+   
+    if state == "bath":
+            acceleration = sense.get_accelerometer_raw()
+            x = acceleration['x']
+            y = acceleration['y']
+            z = acceleration['z']
+            x = round(x, 0)
+            y = round(y, 0)
+        if x == 1 and y == 1 
+    
