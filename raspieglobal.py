@@ -153,7 +153,7 @@ while True:
             ]
         if x == 1 and y == 1 
             sense.set_pixels(bath1)
-            sleep(0,05)
+            sleep(0.05)
             sense.set_pixels(bath2)
             sleep(1)
             state = "menu"
