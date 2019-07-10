@@ -262,23 +262,16 @@ while True:
         x=4
         y=4
 
-    if state == "needs":
-        sense.show_message("Food + Bath", scroll_speed=0.05, text_colour=[255,255,255])
+        
+    if state == "stats":
+        needs = choice([food, sleep, to be entertained, a bath])
+        sense.show_message('I need {}'.needs)
+        sleep(1)
         state = "menu"
-        x=4
-        y=4
+        x = 4
+        y = 4
+        
 
-    if state == "needs_2":
-        sense.show_message("Walk + Sleep", scroll_speed=0.05, text_colour=[255,255,255])
-        state = "menu"
-        x=4
-        y=4
-    
-    y = 0
-    x = 0
-    def draw_ball():
-            sense.set_pixel(7,0,(255,255,255))
-            sense.set_pixel(x,y,(183,125,63))
 
     if state == "fun":
         def move_up(event):
