@@ -75,20 +75,22 @@ while True:
         sense.stick.direction_right = move_right
         draw_ball()
 
-    if x == 2 and y == 7 and state == "menu":
-        state = "sleep"
+
     if x == 6 and y == 7 and state == "menu":
         state = "bath"
     if x == 0 and y == 7 and state == "menu":
         state = "fun"
+    if x == 1 and y == 7 and state == "menu":
+        state = "fun"
+    if x == 2 and y == 7 and state == "menu":
+        state = "sleep"
     if x == 4 and y == 7 and state == "menu":
         state = "food"
     if x == 3 and y == 7 and state == "menu":
         state = "sleep"
     if x == 7 and y == 7 and state == "menu":
         state = "bath"
-    if x == 1 and y == 7 and state == "menu":
-        state = "fun"
+  
     if x == 5 and y == 7 and state == "menu":
         state = "food"
 
@@ -123,37 +125,49 @@ while True:
         sleep(10)
         sense.clear(0,0,0)
         state = "menu"
-   
+
     if state == "bath":
-            acceleration = sense.get_accelerometer_raw()
-            x = acceleration['x']
-            y = acceleration['y']
-            z = acceleration['z']
-            x = round(x, 0)
-            y = round(y, 0)
-            bath1 = [
-            j,j,j,j,j,j,j,j,
-            j,j,j,j,j,j,j,j,
-            j,j,j,j,j,j,j,j,
-            j,j,j,j,j,j,j,j,
-            j,j,j,j,j,j,j,j,
-            j,j,j,j,j,j,j,j,
-            j,j,j,j,j,j,j,j,
-            j,j,j,j,j,j,j,j
-            ]
-            bath2 = [
-            j,j,j,j,j,j,j,j,
-            j,j,j,j,j,j,j,j,
-            j,j,j,j,j,j,j,j,
-            j,j,j,j,j,j,j,j,
-            j,j,j,j,j,j,j,j,
-            j,j,j,j,j,j,j,j,
-            j,j,j,j,j,j,j,j,
-            j,j,j,j,j,j,j,j
-            ]
-        if x == 1 and y == 1 
-            sense.set_pixels(bath1)
-            sleep(0.05)
-            sense.set_pixels(bath2)
-            sleep(1)
-            state = "menu"
+        bath0 = [
+        j,j,j,j,j,j,j,j,
+        j,j,j,j,j,j,j,j,
+        j,j,j,j,j,j,j,j,
+        j,j,j,j,j,j,j,j,
+        j,j,j,j,j,j,j,j,
+        w,j,j,j,j,j,j,w,
+        j,w,j,j,j,j,w,j,
+        j,j,w,w,w,w,j,j
+        ]
+        bath1 = [
+        j,j,l,j,j,j,l,j,
+        j,j,j,j,l,j,j,j,
+        j,j,l,j,j,j,l,j,
+        j,j,j,j,l,j,j,j,
+        j,j,l,j,j,j,l,j,
+        w,j,j,j,l,j,j,w,
+        j,w,l,j,j,j,w,j,
+        j,j,w,w,w,w,j,j
+        ]
+        bath2 = [
+        j,j,j,j,j,j,j,j,
+        j,j,j,j,j,j,j,j,
+        j,j,j,j,j,j,j,j,
+        j,j,j,j,j,j,j,j,
+        j,j,j,j,j,j,j,j,
+        w,l,l,l,l,l,l,w,
+        j,w,l,l,l,l,w,j,
+        j,j,w,w,w,w,j,j
+        ]
+        sense.set_pixels(bath0)
+
+        def move_middle(event):
+            if event.action == 'pressed':
+                sense.set_pixels(bath1)
+        sense.stick.direction_middle = move_middle
+        sleep(5)
+
+        def move_middle1(event):
+            if event.action == 'pressed':
+                sense.set_pixels(bath2)
+        sense.stick.direction_middle = move_middle1
+        sleep(5)
+        state = "menu"
