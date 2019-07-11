@@ -18,22 +18,18 @@ while True:
     o = round(y, 0)
 
     if  o == -1:
-        global o
         sense.set_pixel(x,y, (0,0,0))
         if o > 0:
             y -= 1
     elif o == 1:
-        global o
         sense.set_pixel(x,y, (0,0,0))
         if o < 7:
             y += 1
     elif d == 1:
-        global d
         sense.set_pixel(x,y, (0,0,0))
         if d > 0:
             x -= 1
     elif d == -1:
-        global d
         sense.set_pixel(x,y, (0,0,0))
         if d < 7:
             x += 1    
