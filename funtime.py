@@ -3,6 +3,7 @@ from guizero import *
 from time import sleep
 
 sense = SenseHat()
+sense.set_imu_config(False, True, False)
 
 while True:
     d = sense.get_accelerometer_raw()['x']
