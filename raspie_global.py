@@ -1,6 +1,7 @@
 from sense_hat import SenseHat
 from guizero import *
 from time import sleep
+from random import choice
 
 sense = SenseHat()
 
@@ -264,7 +265,7 @@ while True:
 
         
     if state == "stats":
-        needs = choice([food, sleep, to be entertained, a bath])
+        needs = choice(['food', 'sleep', 'to be entertained', 'a bath'])
         sense.show_message('I need {}'.needs)
         sleep(1)
         state = "menu"
