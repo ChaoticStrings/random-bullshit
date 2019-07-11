@@ -17,19 +17,15 @@ while True:
     o = round(y, 0)
 
     if  o == -1:
-        def move_up(event):
             global y
             sense.set_pixel(x,y, (0,0,0))
-            if event.action == 'pressed' and y > 0:
+            if y > 0:
                 y -= 1
-        sense.stick.direction_up = move_up
     elif o == 1:
-        def move_down(event):
             global y
             sense.set_pixel(x,y, (0,0,0))
-            if event.action == 'pressed' and y < 7:
+            if y < 7:
                 y += 1
-        sense.stick.direction_down = move_down
     elif d == 1:
         def move_left(event):
             global x
