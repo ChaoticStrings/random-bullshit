@@ -96,10 +96,10 @@ while True:
         state = "sleep"
 
     if x == 3 and y == 0 and state == "menu":
-        state = "needs"
+        state = "stats"
         
     if x == 4 and y == 0 and state == "menu":
-        state = "needs_2"
+        state = "stats"
 
     def move_middle(event):
         if event.action == 'pressed':
