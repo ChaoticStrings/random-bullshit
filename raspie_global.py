@@ -266,7 +266,8 @@ while True:
         
     if state == "stats":
         needs = choice(['food', 'sleep', 'to be entertained', 'a bath'])
-        sense.show_message('I need {}'.needs)
+        sense.show_message('I need {}'.
+                           format(needs))
         sleep(1)
         state = "menu"
         x = 4
