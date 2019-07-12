@@ -17,6 +17,8 @@ a=(2,247,202)
 j=(0,0,0)
 z=(86,86,30)
 
+state = "menu"
+
 image= [
 j,j,j,j,j,j,j,j,
 c,c,j,j,j,j,c,c,
@@ -34,48 +36,103 @@ sense.show_message("Raspie!", scroll_speed=0.05, text_colour=[183,125,63])
 y = 4
 x = 4
 def draw_ball():
-            sense.set_pixel(0,7,(132,247,61))
-            sense.set_pixel(1,7,(132,247,61))
-            sense.set_pixel(2,7,(234,126,173))
-            sense.set_pixel(3,7,(234,126,173))
-            sense.set_pixel(4,7,(247,86,61))
-            sense.set_pixel(5,7,(247,86,61))
-            sense.set_pixel(6,7,(105,198,247))
-            sense.set_pixel(7,7,(105,198,247))
-            sense.set_pixel(3,0,(255,255,255))
-            sense.set_pixel(4,0,(255,255,255))
-            sense.set_pixel(x,y,(183,125,63))
+        sense.set_pixel(0,7,(132,247,61))
+        sense.set_pixel(1,7,(132,247,61))
+        sense.set_pixel(2,7,(234,126,173))
+        sense.set_pixel(3,7,(234,126,173))
+        sense.set_pixel(4,7,(247,86,61))
+        sense.set_pixel(5,7,(247,86,61))
+        sense.set_pixel(6,7,(105,198,247))
+        sense.set_pixel(7,7,(105,198,247))
+        sense.set_pixel(3,0,(255,255,255))
+        sense.set_pixel(4,0,(255,255,255))
+        sense.set_pixel(x,y,(183,125,63))
+
+def draw_ball_pong():
+    global state
+    global x
+    global y
+    if ball_position[0] == 7:
+        ball_velocity[0] = -ball_velocity[0]
+    if ball_position[1] == 0 or ball_position[1] == 7:
+        ball_velocity[1] = -ball_velocity[1]
+    if ball_position[0] == 0:
+        state = "menu"
+        x = 4
+        y = 4
+        return
+    if ball_position[0] == 1 and bat_y - 1 <= ball_position[1] <= bat_y + 1:
+        ball_velocity[0] = -ball_velocity[0]
+
+    sense.set_pixel(ball_position[0], ball_position[1], 0, 0, 255)
+    ball_position[0] += ball_velocity[0]
+    ball_position[1] += ball_velocity[1]
+
+def draw_bat():
+    sense.set_pixel(0, bat_y, white)
+    sense.set_pixel(0, bat_y + 1, white)
+    sense.set_pixel(0, bat_y - 1, white)
+
+
+def move_up_pong(event):
+    global bat_y
+    if event.action == 'pressed' and bat_y > 0:
+        bat_y -= 1
+
+
+def move_down_pong(event):
+    global bat_y
+    if event.action == "pressed" and bat_y < 6:
+        bat_y += 1
+
+# MENU FUNCTIONS
+def move_up(event):
+    global y
+    sense.set_pixel(x,y, (0,0,0))
+    if event.action == 'pressed' and y > 0:
+        y -= 1
+def move_down(event):
+    global y
+    sense.set_pixel(x,y, (0,0,0))
+    if event.action == 'pressed' and y < 7:
+        y += 1
+
+def move_left(event):
+    global x
+    sense.set_pixel(x,y, (0,0,0))
+    if event.action == 'pressed' and x > 0:
+        x -= 1
+
+def move_right(event):
+    global x
+    sense.set_pixel(x,y, (0,0,0))
+    if event.action == 'pressed' and x < 7:
+        x += 1
+
+def move_middle(event):
+        if event.action == 'pressed':
+            sense.set_pixels(lights_off)
+
+# Bath
+def move_middle_bath(event):
+            if event.action == 'pressed':
+                sense.set_pixels(bath1)
+
+def move_middle1_bath(event):
+            if event.action == 'pressed':
+                sense.set_pixels(bath2)
+
+
 
 while True:
-    global state
+    sense.clear()
     state = "menu"
     if state == "menu":
-        def move_up(event):
-            global y
-            sense.set_pixel(x,y, (0,0,0))
-            if event.action == 'pressed' and y > 0:
-                y -= 1
-        sense.stick.direction_up = move_up
-        def move_down(event):
-            global y
-            sense.set_pixel(x,y, (0,0,0))
-            if event.action == 'pressed' and y < 7:
-                y += 1
-        sense.stick.direction_down = move_down
-        def move_left(event):
-            global x
-            sense.set_pixel(x,y, (0,0,0))
-            if event.action == 'pressed' and x > 0:
-                x -= 1
-        sense.stick.direction_left = move_left
-        def move_right(event):
-            global x
-            sense.set_pixel(x,y, (0,0,0))
-            if event.action == 'pressed' and x < 7:
-                x += 1
         sense.stick.direction_right = move_right
+        sense.stick.direction_left = move_left
+        sense.stick.direction_down = move_down
+        sense.stick.direction_up = move_up
         draw_ball()
-
 
     if x == 6 and y == 7 and state == "menu":
         state = "bath"
@@ -89,22 +146,14 @@ while True:
         state = "sleep"
     if x == 3 and y == 7 and state == "menu":
         state = "food"
-
     if x == 7 and y == 7 and state == "menu":
         state = "bath"
-
     if x == 5 and y == 7 and state == "menu":
         state = "sleep"
-
     if x == 3 and y == 0 and state == "menu":
         state = "stats"
-        
     if x == 4 and y == 0 and state == "menu":
         state = "stats"
-
-    def move_middle(event):
-        if event.action == 'pressed':
-            sense.set_pixels(lights_off)
 
     if state == "sleep":
         lights_on= [
@@ -169,17 +218,11 @@ while True:
         j,j,w,w,w,w,j,j
         ]
         sense.set_pixels(bath0)
-
-        def move_middle(event):
-            if event.action == 'pressed':
-                sense.set_pixels(bath1)
-        sense.stick.direction_middle = move_middle
+        sense.stick.direction_middle = move_middle_bath
         sleep(5)
 
-        def move_middle1(event):
-            if event.action == 'pressed':
-                sense.set_pixels(bath2)
-        sense.stick.direction_middle = move_middle1
+
+        sense.stick.direction_middle = move_middle1_bath
         sleep(5)
         sense.show_message("All Cleaned Up!", scroll_speed=0.035, text_colour=[105,198,247])
         sense.clear(0,0,0)
@@ -263,37 +306,28 @@ while True:
         x=4
         y=4
 
-        
     if state == "stats":
         needs = choice(['food', 'sleep', 'to be entertained', 'a bath'])
-        sense.show_message('I need {}'.
-                           format(needs))
+        sense.show_message('I need {}'. format(needs), scroll_speed=0.05, text_colour=[183,125,63])
         sleep(1)
         state = "menu"
         x = 4
         y = 4
-        
-
 
     if state == "fun":
-        def move_up(event):
-            sense.set_pixel(x,y, (0,0,0))
-            if event.action == 'pressed' and y > 0:
-                y -= 1
-        sense.stick.direction_up = move_up
-        def move_down(event):
-            sense.set_pixel(x,y, (0,0,0))
-            if event.action == 'pressed' and y < 7:
-                y += 1
-        sense.stick.direction_down = move_down
-        def move_left(event):
-            sense.set_pixel(x,y, (0,0,0))
-            if event.action == 'pressed' and x > 0:
-                x -= 1
-        sense.stick.direction_left = move_left
-        def move_right(event):
-            sense.set_pixel(x,y, (0,0,0))
-            if event.action == 'pressed' and x < 7:
-                x += 1
-        sense.stick.direction_right = move_right
-        draw_ball()
+
+        white = (255,255,255)
+        bat_y = 4
+
+        sense.stick.direction_down = move_down_pong
+        sense.stick.direction_up = move_up_pong
+
+        ball_position = [3,3]
+        ball_velocity = [1,1]
+
+        while state == "fun":
+            sense.clear()
+            draw_ball_pong()
+            draw_bat()
+            sleep(0.25)
+    sleep(0.25)
